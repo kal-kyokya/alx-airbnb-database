@@ -9,22 +9,22 @@
 * email: VARCHAR, UNIQUE, NOT NULL
 * password_hash: VARCHAR, NOT NULL
 * phone_number: VARCHAR, NULL
-* role: ENUM (guest, player, coach, scout, host, admin), NOT NULL
+* role: ENUM (guest_user, host_user, admin_user), NOT NULL
 * created_at: TIMESTAMP, DEFAULT CURRENT_TIMESTAMP
 
-### Service
-* service_id: Primary Key, UUID, Indexed
+### Property
+* property_id: Primary Key, UUID, Indexed
 * host_id: Foreign Key, references User(user_id)
-* name: VARCHAR, NOT NULL
-* description: TEXT, NOT NULL
+* property_name: VARCHAR, NOT NULL
+* description: VARCHAR, NOT NULL
 * location: VARCHAR, NOT NULL
-* pricepersession: DECIMAL, NOT NULL
+* pricepernight: DECIMAL, NOT NULL
 * created_at: TIMESTAMP, DEFAULT CURRENT_TIMESTAMP
 * updated_at: TIMESTAMP, ON UPDATE CURRENT_TIMESTAMP
 
 ### Booking
 * booking_id: Primary Key, UUID, Indexed
-* service_id: Foreign Key, references Service(service_id)
+* property_id: Foreign Key, references Property(property_id)
 * user_id: Foreign Key, references User(user_id)
 * start_date: DATE, NOT NULL
 * end_date: DATE, NOT NULL
@@ -41,7 +41,7 @@
 
 ### Review
 * review_id: Primary Key, UUID, Indexed
-* service_id: Foreign Key, references Service(service_id)
+* property_id: Foreign Key, references Property(property_id)
 * user_id: Foreign Key, references User(user_id)
 * rating: INTEGER, CHECK: rating >= 1 AND rating <= 5, NOT NULL
 * comment: TEXT, NOT NULL
@@ -60,12 +60,12 @@
 * Unique constraint on email.
 * Non-null constraints on required fields.
 
-### Service Table
+### Property Table
 * Foreign key constraint on host_id.
 * Non-null constraints on essential attributes.
 
 ### Booking Table
-* Foreign key constraints on service_id and user_id.
+* Foreign key constraints on property_id and user_id.
 * Status must be one of pending, confirmed, or canceled.
 
 ### Payment Table
@@ -73,7 +73,7 @@
 
 ### Review Table
 * Constraints on rating values (1-5).
-* Foreign key constraints on service_id and user_id.
+* Foreign key constraints on property_id and user_id.
 
 ### Message Table
 * Foreign key constraints on sender_id and recipient_id.
@@ -83,6 +83,6 @@
 * Additional Indexes:
 ```
 	->	email in the User table.
-	->	service_id in the Service and Booking tables.
+	->	property_id in the Property and Booking tables.
 	->	booking_id in the Booking and Payment tables.
 ```
