@@ -35,3 +35,13 @@ CREATE TABLE Booking (
        status ENUM(pending, confirmed, canceled) NOT NULL,
        created_at TIMESTAMP(3) DEFAULT CURRENT_STAMP
 );
+
+CREATE TABLE Payment (
+       payment_id INTEGER,
+       PRIMARY KEY (payment_id),
+       FOREIGN KEY (booking_id) REFERENCES Booking(booking_id),
+       amount DECIMAL(10, 3) NOT NULL,
+       payment_date TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+       payment_method ENUM(credit_card, paypal, stripe) NOT NULL
+);
+

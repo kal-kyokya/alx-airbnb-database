@@ -37,7 +37,7 @@
 * booking_id: Foreign Key, references Booking(booking_id)
 * amount: DECIMAL, NOT NULL
 * payment_date: TIMESTAMP, DEFAULT CURRENT_TIMESTAMP
-* payment_method: ENUM (mpesa, credit_card, paypal, stripe), NOT NULL
+* payment_method: ENUM (credit_card, paypal, stripe), NOT NULL
 
 ### Review
 * review_id: Primary Key, UUID, Indexed
