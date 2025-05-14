@@ -1,7 +1,7 @@
 -- SQL queries to define the database schema
 
 CREATE TABLE User (
-       user_id INTEGER,
+       user_id INTEGER AUTO_INCREMENT,
        PRIMARY KEY (user_id),
        first_name VARCHAR(50) NOT NULL,
        last_name VARCHAR(50) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Property (
-       property_id INTEGER,
+       property_id INTEGER AUTO_INCREMENT,
        PRIMARY KEY (property_id),
        FOREIGN KEY (host_id) REFERENCES user(user_id),
        property_name VARCHAR(50) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE Property (
 );
 
 CREATE TABLE Booking (
-       booking_id INTEGER,
+       booking_id INTEGER AUTO_INCREMENT,
        PRIMARY KEY (booking_id),
        FOREIGN KEY (property_id) REFERENCES Property(property_id),
        FOREIGN KEY (user_id) REFERENCES User(user_id),
@@ -38,7 +38,7 @@ CREATE TABLE Booking (
 );
 
 CREATE TABLE Payment (
-       payment_id INTEGER,
+       payment_id INTEGER AUTO_INCREMENT,
        PRIMARY KEY (payment_id),
        FOREIGN KEY (booking_id) REFERENCES Booking(booking_id),
        amount DECIMAL(10, 3) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE Payment (
 );
 
 CREATE TABLE Review (
-       review_id INTEGER,
+       review_id INTEGER AUTO_INCREMENT,
        PRIMARY KEY (review_id),
        FOREIGN KEY (property_id) REFERENCES Property(property_id),
        FOREIGN KEY (user_id) REFERENCES User(user_id),
@@ -58,7 +58,7 @@ CREATE TABLE Review (
 );
 
 CREATE TABLE Message (
-       message_id INTEGER,
+       message_id INTEGER AUTO_INCREMENT,
        PRIMARY KEY (message_id),
        FOREIGN KEY (sender_id) REFERENCES User(user_id),
        FOREIGN KEY (recipient_id) REFERENCES User(user_id),
@@ -66,7 +66,7 @@ CREATE TABLE Message (
        sent_at TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP
 );
 
--- Creating an index on the Usern Property, Booking and Payment tables
+-- Indexing on the User, Property, Booking and Payment tables
 
 CREATE INDEX idx_email
 ON User (email);
