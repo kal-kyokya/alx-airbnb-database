@@ -45,3 +45,22 @@ CREATE TABLE Payment (
        payment_method ENUM(credit_card, paypal, stripe) NOT NULL
 );
 
+CREATE TABLE Review (
+       review_id INTEGER,
+       PRIMARY KEY (review_id),
+       FOREIGN KEY (property_id) REFERENCES Property(property_id),
+       FOREIGN KEY (user_id) REFERENCES User(user_id),
+       rating INTEGER NOT NULL,
+       CHECK (rating >= 1 AND rating <= 5),
+       comment VARCHAR(260),
+       created_at TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Message (
+       message_id INTEGER,
+       PRIMARY KEY (message_id),
+       FOREIGN KEY (sender_id) REFERENCES User(user_id),
+       FOREIGN KEY (recipient_id) REFERENCES User(user_id),
+       message_body VARCHAR(260) NOT NULL,
+       sent_at TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP
+);
