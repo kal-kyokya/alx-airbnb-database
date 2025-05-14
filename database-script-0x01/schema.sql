@@ -65,3 +65,20 @@ CREATE TABLE Message (
        message_body VARCHAR(260) NOT NULL,
        sent_at TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Creating an index on the Usern Property, Booking and Payment tables
+
+CREATE INDEX idx_email
+ON User (email);
+
+CREATE INDEX idx_property_id
+ON Property (property_id);
+
+CREATE INDEX idx_property_id
+ON Booking (property_id);
+
+CREATE INDEX idx_booking_id
+ON Booking (booking_id);
+
+CREATE INDEX idx_booking_id
+ON Payment (booking_id);
