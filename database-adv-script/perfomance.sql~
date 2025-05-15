@@ -1,0 +1,10 @@
+-- SQL Script refactoring complex queries to improve performance
+
+SELECT *
+FROM Booking b
+INNER JOIN User u
+ON b.user_id = u.user_id
+INNER JOIN Property pt
+ON b.property_id = pt.property_id
+INNER JOIN Payment p
+ON b.payment_id = p.payment_id;
