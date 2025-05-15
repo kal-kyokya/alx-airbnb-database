@@ -5,5 +5,6 @@ FROM Booking
 GROUP BY user_id;
 
 SELECT *,
+RANK() OVER (PARTITION BY property_id ORDER BY booking_id DESC) AS ranking
 ROW_NUMBER() OVER (PARTITION BY property_id ORDER BY booking_id DESC) AS ranking
 FROM Booking;
