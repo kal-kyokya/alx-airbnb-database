@@ -5,6 +5,7 @@ FROM Booking
 GROUP BY user_id;
 
 SELECT *,
-RANK() OVER (PARTITION BY property_id ORDER BY booking_id DESC) AS ranking
-ROW_NUMBER() OVER (PARTITION BY property_id ORDER BY booking_id DESC) AS ranking
+RANK() OVER (PARTITION BY property_id ORDER BY booking_id DESC) AS rank,
+ROW_NUMBER() OVER (PARTITION BY property_id ORDER BY booking_id DESC) AS row_rank,
+DENSE_NUMBER() OVER (PARTITION BY property_id ORDER BY booking_id DESC) AS dense_rank
 FROM Booking;
