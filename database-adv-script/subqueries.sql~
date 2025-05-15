@@ -1,0 +1,9 @@
+-- SQL Script handling both correlated and non-correlated subqueries
+
+SELECT *
+FROM Property
+WHERE AVG() > 4;
+
+SELECT property_id, AVG(rating) AS avg_rating
+FROM Review
+GROUP BY property_id;
