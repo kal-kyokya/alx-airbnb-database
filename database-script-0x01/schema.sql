@@ -1,7 +1,10 @@
 -- SQL queries to define the database schema
 
-CREATE TABLE User (
-       user_id INTEGER AUTO_INCREMENT,
+-- Create the 'ENUM' types explicitly due to unavailability of inline ENUM() in PostgreSQL
+CREATE TYPE
+
+CREATE TABLE Users (
+       user_id SERIAL,
        PRIMARY KEY (user_id),
        first_name VARCHAR(50) NOT NULL,
        last_name VARCHAR(50) NOT NULL,
@@ -14,9 +17,9 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Property (
-       property_id INTEGER AUTO_INCREMENT,
+       property_id SERIAL,
        PRIMARY KEY (property_id),
-       FOREIGN KEY (host_id) REFERENCES user(user_id),
+       FOREIGN KEY (host_id) REFERENCES Users(user_id),
        property_name VARCHAR(50) NOT NULL,
        description VARCHAR(260) NOT NULL,
        location VARCHAR(50) NOT NULL,
@@ -26,10 +29,10 @@ CREATE TABLE Property (
 );
 
 CREATE TABLE Booking (
-       booking_id INTEGER AUTO_INCREMENT,
+       booking_id SERIAL,
        PRIMARY KEY (booking_id),
        FOREIGN KEY (property_id) REFERENCES Property(property_id),
-       FOREIGN KEY (user_id) REFERENCES User(user_id),
+       FOREIGN KEY (user_id) REFERENCES Users(user_id),
        start_date DATE NOT NULL,
        end_date DATE NOT NULL,
        total_price DECIMAL(10, 3) NOT NULL,
@@ -38,7 +41,7 @@ CREATE TABLE Booking (
 );
 
 CREATE TABLE Payment (
-       payment_id INTEGER AUTO_INCREMENT,
+       payment_id SERIAL,
        PRIMARY KEY (payment_id),
        FOREIGN KEY (booking_id) REFERENCES Booking(booking_id),
        amount DECIMAL(10, 3) NOT NULL,
@@ -47,10 +50,10 @@ CREATE TABLE Payment (
 );
 
 CREATE TABLE Review (
-       review_id INTEGER AUTO_INCREMENT,
+       review_id SERIAL,
        PRIMARY KEY (review_id),
        FOREIGN KEY (property_id) REFERENCES Property(property_id),
-       FOREIGN KEY (user_id) REFERENCES User(user_id),
+       FOREIGN KEY (user_id) REFERENCES Users(user_id),
        rating INTEGER NOT NULL,
        CHECK (rating >= 1 AND rating <= 5),
        comment VARCHAR(260),
@@ -58,10 +61,10 @@ CREATE TABLE Review (
 );
 
 CREATE TABLE Message (
-       message_id INTEGER AUTO_INCREMENT,
+       message_id SERIAL,
        PRIMARY KEY (message_id),
-       FOREIGN KEY (sender_id) REFERENCES User(user_id),
-       FOREIGN KEY (recipient_id) REFERENCES User(user_id),
+       FOREIGN KEY (sender_id) REFERENCES Users(user_id),
+       FOREIGN KEY (recipient_id) REFERENCES Users(user_id),
        message_body VARCHAR(260) NOT NULL,
        sent_at TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP
 );
@@ -69,7 +72,7 @@ CREATE TABLE Message (
 -- Indexing on the User, Property, Booking and Payment tables
 
 CREATE INDEX idx_email
-ON User (email);
+ON Users (email);
 
 CREATE INDEX idx_property_id
 ON Property (property_id);
