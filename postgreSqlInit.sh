@@ -45,12 +45,14 @@ sudo -u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='$DBNAME'" |
     sudo -u postgres psql -c "CREATE DATABASE $DBNAME;" | tee -a "$LOGFILE"
 }
 
-# Step 3: Grant privileges
+# Step 3:
+# 3.1 Grant privileges
 echo "Granting privileges on '$DBNAME' to '$USERNAME'..." | tee -a "$LOGFILE"
 echo ""
 
 sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $DBNAME TO $USERNAME;" | tee -a "$LOGFILE"
 
+# 3.2 Grant access to public schema (to allow table creation)
 echo "Granting usage and create privileges on schema 'public' to '$USERNAME'..." | tee -a "$LOGFILE"
 echo ""
 
