@@ -8,7 +8,9 @@ ON b.user_id = u.user_id
 INNER JOIN Property pt
 ON b.property_id = pt.property_id
 INNER JOIN Payment p
-ON b.booking_id = p.booking_id;
+ON b.booking_id = p.booking_id
+WHERE b.start_date >= CURRENT_DATE - INTERVAL '6 months'
+AND p.status = 'completed';
 
 CREATE INDEX idx_property_id
 ON Property (property_id);
