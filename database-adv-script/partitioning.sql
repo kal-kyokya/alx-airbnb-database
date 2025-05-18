@@ -1,0 +1,13 @@
+-- SQL script implementing partitioning on a table based on a date column
+
+CREATE TABLE Booking (
+       booking_id SERIAL,
+       PRIMARY KEY (booking_id),
+       FOREIGN KEY (property_id) REFERENCES Property(property_id),
+       FOREIGN KEY (user_id) REFERENCES Users(user_id),
+       start_date DATE NOT NULL,
+       end_date DATE NOT NULL,
+       total_price DECIMAL(10, 3) NOT NULL,
+       status ENUM(pending, confirmed, canceled) NOT NULL,
+       created_at TIMESTAMP(3) DEFAULT CURRENT_STAMP
+) PARTITION BY RANGE (start_date);

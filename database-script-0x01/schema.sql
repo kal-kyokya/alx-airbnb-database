@@ -10,7 +10,7 @@ CREATE TABLE Users (
        last_name VARCHAR(50) NOT NULL,
        email VARCHAR(50) NOT NULL,
        UNIQUE (email),
-       password_hash VARCHAR(50) NOT NULL,
+       password_hash TEXT NOT NULL,
        phone_number VARCHAR(50),
        user_role ENUM(guest_user, host_user, admin_user) NOT NULL,
        created_at TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP
