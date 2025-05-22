@@ -2,7 +2,7 @@
 
 SELECT *
 FROM Booking b
-INNER JOIN User u
+INNER JOIN Users u
 ON b.user_id = u.user_id;
 
 SELECT *
@@ -12,6 +12,6 @@ ON p.property_id = r.property_id
 ORDER BY r.rating DESC;
 
 SELECT *
-FROM User u
+FROM Users u
 FULL OUTER JOIN Booking b
 ON u.user_id = b.user_id;
