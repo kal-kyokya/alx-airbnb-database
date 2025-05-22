@@ -3,17 +3,17 @@
 SELECT *
 FROM Property
 WHERE property_id IN (
-      SELECT property_id, AVG(rating) AS avg_rating
+      SELECT property_id
       FROM Review
       GROUP BY property_id
-      HAVING AVG(rating) > 4.0
+      HAVING AVG(rating) > 2.5
 );
 
 SELECT *
-FROM User
+FROM Users
 WHERE user_id IN (
-      SELECT user_id, COUNT(booking_id) AS bookings
+      SELECT user_id
       FROM Booking
       GROUP BY user_id
-      HAVING COUNT(booking_id) > 3
+      HAVING COUNT(booking_id) >= 1
 );
